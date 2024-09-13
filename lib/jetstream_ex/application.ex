@@ -5,6 +5,8 @@ defmodule JetstreamEx.Application do
 
   use Application
 
+  require Logger
+
   @impl true
   def start(_type, _args) do
     children = [
@@ -15,6 +17,14 @@ defmodule JetstreamEx.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: JetstreamEx.Supervisor]
-    Supervisor.start_link(children, opts)
+    {:ok, pid} = Supervisor.start_link(children, opts)
+
+    "starting" |> debug()
+
+    {:ok, pid}
+  end
+
+  def debug(message) do
+    message |> Logger.debug()
   end
 end
