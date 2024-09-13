@@ -23,7 +23,8 @@ defmodule JetstreamEx.MixProject do
   defp deps do
     [
       {:gnat, "~> 1.5"},
-      {:jetstream, "~> 0.0.5"}
+      {:jetstream, "~> 0.0.5"},
+      {:req, "~> 0.5.0"}
     ]
   end
 end

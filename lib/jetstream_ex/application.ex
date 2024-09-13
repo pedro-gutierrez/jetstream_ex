@@ -15,7 +15,14 @@ defmodule JetstreamEx.Application do
            %{host: "localhost", port: 4222}
          ]
        }},
-      JetstreamEx.Consumer
+      {Gnat.ConsumerSupervisor,
+       %{
+         connection_name: :gnat,
+         consuming_function: {JetstreamEx.Consumer, :handle_message},
+         subscription_topics: [
+           %{topic: "rabbits"}
+         ]
+       }}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
