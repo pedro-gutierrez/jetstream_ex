@@ -1,18 +1,13 @@
 defmodule JetstreamEx do
   @moduledoc """
-  Documentation for `JetstreamEx`.
+  Publishes a message
   """
 
-  @doc """
-  Hello world.
+  alias JetstreamEx.Cache
 
-  ## Examples
+  def publish(topic, message) do
+    {:ok, _} = Cache.start_link()
 
-      iex> JetstreamEx.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    Gnat.pub(:gnat, topic, message)
   end
 end
