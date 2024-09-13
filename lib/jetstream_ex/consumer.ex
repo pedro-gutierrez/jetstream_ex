@@ -1,22 +1,13 @@
 defmodule JetstreamEx.Consumer do
-  use Jetstream.PullConsumer
-
-  def start_link([]) do
-    Jetstream.PullConsumer.start_link(__MODULE__, [])
-  end
+  @moduledoc false
 
   @impl true
-  def init([]) do
-    {:ok, nil, connection_name: :gnat, stream_name: "HELLO", consumer_name: "LOGGER"}
-  end
+  def handle_message(message) do
+    IO.inspect(got: message)
 
-  @impl true
-  def handle_message(message, state) do
-    some_var = ""
+    Req.get!("https://api.github.com/repos/wojtekmach/req").body["description"]
+    |> IO.inspect()
 
-    call_some_functi()
-
-    IO.inspect(message)
-    {:ack, state}
+    nil
   end
 end
