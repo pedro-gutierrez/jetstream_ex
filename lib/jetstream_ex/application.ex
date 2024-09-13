@@ -8,8 +8,14 @@ defmodule JetstreamEx.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: JetstreamEx.Worker.start_link(arg)
-      # {JetstreamEx.Worker, arg}
+      {Gnat.ConnectionSupervisor,
+       %{
+         name: :gnat,
+         connection_settings: [
+           %{host: "localhost", port: 4222}
+         ]
+       }},
+      JetstreamEx.Consumer
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
